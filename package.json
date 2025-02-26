@@ -16,7 +16,6 @@
 		"@sveltejs/adapter-node": "^5.2.12",
 		"@sveltejs/kit": "^2.16.0",
 		"@sveltejs/vite-plugin-svelte": "^5.0.0",
-		"@types/feather-icons": "^4.29.4",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
 		"typescript": "^5.0.0",
@@ -27,7 +26,6 @@
 		"@auth/sveltekit": "^1.7.4",
 		"@prisma/client": "^6.3.0",
 		"dotenv": "^16.4.7",
-		"feather-icons": "^4.29.2",
 		"jsonwebtoken": "^9.0.2",
 		"prisma": "^6.3.0"
 	}

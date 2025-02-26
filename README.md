@@ -1,6 +1,6 @@
 # sv
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Everything you need to build a Svelte project.
 
 * Prisma ORM
 * AuthJS
@@ -8,13 +8,18 @@ Everything you need to build a Svelte project, powered by [`sv`](https://github.
 
 ## Developing
 
+Create a .env file
+```
+DATABASE_URL="file:./dev.db"
+AUTH_SECRET=xxxx
+DISCORD_CLIENT_ID=xxxx
+DISCORD_CLIENT_SECRET=xxx
+```
 
-```bash
+Run the project
+```
 npm install
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
 ## Building
