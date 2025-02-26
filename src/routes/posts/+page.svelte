@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { page } from "$app/stores";
+    import { page } from "$app/state";
     import BlogPost from "../../components/BlogPost.svelte";
 
     export let data;
@@ -7,7 +7,7 @@
 
 <h1>Blog Posts</h1>
 
-{#if $page.data.session}
+{#if page.data.session}
     <a href="/posts/new" role="button">Create New Post</a>
 {/if}
 

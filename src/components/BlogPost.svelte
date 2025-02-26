@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { page } from "$app/stores";
+    import { page } from "$app/state";
     
     export let post: {
         id: string;
@@ -16,7 +16,7 @@
             },
             body: JSON.stringify({
                 id: post.id,
-                authorId: $page.data.session?.user?.id
+                authorId: page.data.session?.user?.id
             })
         });
 
@@ -31,7 +31,7 @@
         <h3>{post.title}</h3>
     </header>
     <p>{post.content}</p>
-    {#if $page.data.session?.user?.id === post.authorId}
+    {#if page.data.session?.user?.id === post.authorId}
         <footer>
             <a href="/posts/{post.id}/edit" role="button" class="secondary">Edit</a>
             <button class="error" on:click={deletePost}>Delete</button>

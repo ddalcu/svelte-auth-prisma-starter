@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { page } from "$app/stores";
+    import { page } from "$app/state";
     import { goto } from "$app/navigation";
 
     let title = '';
@@ -16,7 +16,7 @@
             body: JSON.stringify({
                 title,
                 content,
-                authorId: $page.data.session?.user?.id
+                authorId: page.data.session?.user?.id
             })
         });
 
