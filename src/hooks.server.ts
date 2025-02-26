@@ -7,6 +7,7 @@ import type { Handle } from '@sveltejs/kit';
 declare module '@auth/core/types' {
   interface Session {
     user: {
+      name: string;
       image: string | null | undefined;
       role?: string;
       id?: string;
