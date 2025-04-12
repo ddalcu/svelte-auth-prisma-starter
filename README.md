@@ -19,6 +19,7 @@ DISCORD_CLIENT_SECRET=xxx
 Run the project
 ```
 npm install
+npx prisma generate dev
 npm run dev
 ```
 
