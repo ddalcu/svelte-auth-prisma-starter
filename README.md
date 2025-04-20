@@ -24,6 +24,24 @@ npx prisma generate dev
 npm run dev
 ```
 
+### Magic Link Authentication (Local Development)
+
+Magic link authentication is set up for local development:
+
+1. Access the login page at `/login` and use the "Sign in with Email" option
+
+2. Enter any email address
+
+3. The magic link will be output directly to your console logs, like this:
+```
+----- MAGIC LINK EMAIL -----
+To: your@email.com
+Magic Link: http://localhost:5173/auth/callback/email?...
+-----------------------------
+```
+
+4. Copy and paste the magic link into your browser to log in
+
 ## Building
 
 To create a production version of your app:

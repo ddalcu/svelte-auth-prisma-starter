@@ -1,5 +1,6 @@
 import { SvelteKitAuth } from '@auth/sveltekit';
 import DiscordProvider from '@auth/core/providers/discord';
+import Email from "@auth/sveltekit/providers/email";
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import { PrismaClient } from '@prisma/client';
 import type { Handle } from '@sveltejs/kit';
@@ -27,32 +28,47 @@ export const { handle, signIn, signOut } = SvelteKitAuth({
 		DiscordProvider({
 			clientId: process.env.DISCORD_CLIENT_ID,
 			clientSecret: process.env.DISCORD_CLIENT_SECRET
-		})
+		}),
+    Email({
+      server: {
+        host: "localhost",
+        port: 1025,
+        auth: {
+          user: "",
+          pass: ""
+        }
+      },
+      from: "noreply@example.com",
+      async sendVerificationRequest({ identifier, url }) {
+        console.log(`Magic Link for ${identifier}: ${url}`);
+      },
+    }),
 	],
   trustHost: true,
 	adapter: PrismaAdapter(prisma),
-    callbacks: {
-        async session({ session, user }) {
+  debug: true,
+  callbacks: {
+      async session({ session, user }) {
+        const dbUser = await prisma.user.findUnique({
+          where: { email: user.email ?? undefined },
+        });
+        if (dbUser) {
+          session.user.role = dbUser.role ?? undefined;
+          session.user.id = dbUser.id;
+        }
+        return session;
+      },
+      async jwt({token, user}) {
+        if (user) {
           const dbUser = await prisma.user.findUnique({
             where: { email: user.email ?? undefined },
           });
           if (dbUser) {
-            session.user.role = dbUser.role ?? undefined;
-            session.user.id = dbUser.id;
+            token.role = dbUser.role; // Add role to JWT token
+            token.id = dbUser.id; // Add id to session
           }
-          return session;
-        },
-        async jwt({token, user}) {
-          if (user) {
-            const dbUser = await prisma.user.findUnique({
-              where: { email: user.email ?? undefined },
-            });
-            if (dbUser) {
-              token.role = dbUser.role; // Add role to JWT token
-              token.id = dbUser.id; // Add id to session
-            }
-          }
-          return token;
-        },
+        }
+        return token;
       }
+    }
 });
