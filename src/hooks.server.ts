@@ -1,5 +1,5 @@
 import { SvelteKitAuth } from '@auth/sveltekit';
-import DiscordProvider from '@auth/core/providers/discord';
+import GoogleProvider from '@auth/core/providers/google';
 import Email from "@auth/sveltekit/providers/email";
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import { PrismaClient } from '@prisma/client';
@@ -25,9 +25,9 @@ const prisma = new PrismaClient();
 
 export const { handle, signIn, signOut } = SvelteKitAuth({
 	providers: [
-		DiscordProvider({
-			clientId: process.env.DISCORD_CLIENT_ID,
-			clientSecret: process.env.DISCORD_CLIENT_SECRET
+		GoogleProvider({
+			clientId: process.env.GOOGLE_CLIENT_ID,
+			clientSecret: process.env.GOOGLE_CLIENT_SECRET
 		}),
     Email({
       server: {

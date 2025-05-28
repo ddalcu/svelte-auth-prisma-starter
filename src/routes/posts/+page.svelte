@@ -5,14 +5,17 @@
     export let data;
 </script>
 
-<h1>Blog Posts</h1>
+<div class="max-w-5xl mx-auto p-8">
+    <div class="flex justify-between items-center mb-12">
+        <h1 class="text-4xl font-bold">Blog Posts</h1>
+        {#if page.data.session}
+            <a href="/posts/new" class="btn btn-primary">Create New Post</a>
+        {/if}
+    </div>
 
-{#if page.data.session}
-    <a href="/posts/new" role="button">Create New Post</a>
-{/if}
-
-<section>
-    {#each data.posts as post}
-        <BlogPost {post} />
-    {/each}
-</section>
+    <div class="space-y-8">
+        {#each data.posts as post}
+            <BlogPost {post} />
+        {/each}
+    </div>
+</div>

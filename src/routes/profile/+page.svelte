@@ -11,89 +11,42 @@
   });
 </script>
 
-<div class="profile-container">
+<div class="max-w-3xl mx-auto p-8">
   {#if $page.data.session}
-    <div class="profile-header">
-      <h1>Your Profile</h1>
-      {#if $page.data.session.user?.image}
-        <img 
-          src={$page.data.session.user.image} 
-          alt="Profile" 
-          class="profile-image"
-        />
-      {/if}
-    </div>
+    <div class="card bg-base-100 shadow-xl">
+      <div class="card-body">
+        <div class="flex items-center justify-between mb-8 pb-4 border-b border-base-300">
+          <h1 class="text-3xl font-bold">Your Profile</h1>
+          {#if $page.data.session.user?.image}
+            <div class="avatar">
+              <div class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                <img src={$page.data.session.user.image} alt="Profile" />
+              </div>
+            </div>
+          {/if}
+        </div>
 
-    <div class="profile-info">
-      <h2>Welcome, {$page.data.session.user?.name || "User"}!</h2>
-      <p>You are successfully logged in.</p>
-      
-      <div class="account-details">
-        <h3>Account Details</h3>
-        {#if $page.data.session.user?.role}
-          <p><strong>Role:</strong> {$page.data.session.user.role}</p>
-        {/if}
-        {#if $page.data.session.user?.id}
-          <p><strong>User ID:</strong> {$page.data.session.user.id}</p>
-        {/if}
+        <div class="space-y-6">
+          <h2 class="text-2xl font-semibold">Welcome, {$page.data.session.user?.name || "User"}!</h2>
+          <p class="text-base-content/70">You are successfully logged in.</p>
+          
+          <div class="card bg-base-200">
+            <div class="card-body">
+              <h3 class="card-title">Account Details</h3>
+              {#if $page.data.session.user?.role}
+                <p><span class="font-semibold">Role:</span> {$page.data.session.user.role}</p>
+              {/if}
+              {#if $page.data.session.user?.id}
+                <p><span class="font-semibold">User ID:</span> {$page.data.session.user.id}</p>
+              {/if}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   {:else}
-    <p>Loading...</p>
+    <div class="flex justify-center">
+      <span class="loading loading-spinner loading-lg"></span>
+    </div>
   {/if}
-</div>
-
-<style>
-  .profile-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 2rem;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-
-  .profile-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #eaeaea;
-  }
-
-  .profile-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-
-  .profile-info {
-    margin-top: 1rem;
-  }
-
-  .account-details {
-    margin-top: 2rem;
-    padding: 1rem;
-    background-color: white;
-    border-radius: 6px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  }
-
-  h1 {
-    margin: 0;
-    color: #333;
-  }
-
-  h2 {
-    color: #444;
-  }
-
-  h3 {
-    color: #555;
-    margin-top: 0;
-  }
-</style> 
+</div> 

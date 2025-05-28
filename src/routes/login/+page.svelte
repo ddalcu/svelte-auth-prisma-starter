@@ -30,120 +30,58 @@
   }
 </script>
 
-<div class="login-container">
-  <h1>Login</h1>
-  
-  <div class="login-methods">
-    <div class="login-method">
-      <h2>Sign in with Discord</h2>
-      <button on:click={() => signIn("discord", { callbackUrl: "/profile" })}>
-        Continue with Discord
-      </button>
-    </div>
-    
-    <div class="separator">OR</div>
-    
-    <div class="login-method">
-      <h2>Sign in with Email</h2>
-      <p>We'll send you a magic link to your email</p>
+<div class="max-w-md mx-auto p-8">
+  <div class="card bg-base-100 shadow-xl">
+    <div class="card-body">
+      <h1 class="card-title text-3xl text-center mb-8">Login</h1>
       
-      <form on:submit|preventDefault={handleEmailSignIn}>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input 
-            type="email" 
-            id="email" 
-            bind:value={email} 
-            placeholder="your@email.com" 
-            required
-          />
+      <div class="space-y-8">
+        <div class="card bg-base-200">
+          <div class="card-body">
+            <h2 class="card-title">Sign in with Google</h2>
+            <button on:click={() => signIn("google", { callbackUrl: "/profile" })} 
+              class="btn btn-primary w-full">
+              Continue with Google
+            </button>
+          </div>
         </div>
         
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? "Sending..." : "Send Magic Link"}
-        </button>
+        <div class="divider">OR</div>
         
-        {#if message}
-          <div class="message">
-            {message}
+        <div class="card bg-base-200">
+          <div class="card-body">
+            <h2 class="card-title">Sign in with Email</h2>
+            <p class="text-base-content/70">We'll send you a magic link to your email</p>
+            
+            <form on:submit|preventDefault={handleEmailSignIn}>
+              <div class="form-control w-full">
+                <label class="label" for="email">
+                  <span class="label-text">Email</span>
+                </label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  bind:value={email} 
+                  placeholder="your@email.com" 
+                  required
+                  class="input input-bordered w-full"
+                />
+              </div>
+              
+              <button type="submit" disabled={isLoading} 
+                class="btn btn-neutral w-full mt-4">
+                {isLoading ? "Sending..." : "Send Magic Link"}
+              </button>
+              
+              {#if message}
+                <div class="alert mt-4">
+                  <span>{message}</span>
+                </div>
+              {/if}
+            </form>
           </div>
-        {/if}
-      </form>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-
-<style>
-  .login-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 2rem;
-  }
-  
-  h1 {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-  
-  .login-methods {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-  
-  .login-method {
-    padding: 1.5rem;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-  }
-  
-  .separator {
-    text-align: center;
-    font-weight: bold;
-    margin: 0.5rem 0;
-  }
-  
-  .form-group {
-    margin-bottom: 1rem;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-  
-  input {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  button {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: #4a4a4a;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
-  }
-  
-  button:hover {
-    background-color: #333;
-  }
-  
-  button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-  
-  .message {
-    margin-top: 1rem;
-    padding: 0.75rem;
-    text-align: center;
-    background-color: #f0f0f0;
-    border-radius: 4px;
-  }
-</style>
